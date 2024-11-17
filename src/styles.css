@@ -1,0 +1,278 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f8f9fa;
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+}
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.sidebar a:hover {
+    background-color: #495057;
+}
+.sidebar a.active {
+    background-color: #007bff;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}
+.data-table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.data-table th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+.data-table td {
+    text-align: center;
+}
+.input-group {
+    margin-bottom: 15px;
+}
+
+.btn-custom.clicked {
+    background-color: #007bff;
+    color: white;
+}
+.btn-danger-custom {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    transition: background-color 0.3s, color 0.3s;
+}
+.btn-danger-custom.clicked {
+    background-color: #dc3545;
+    color: white;
+}
+.copy-button {
+    cursor: pointer;
+    margin-top: 10px;
+}
+.selected {
+    background-color: #f2f2f2;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.optional-section {
+    margin-top: 20px;
+    display: none;
+}
+.key-type, .key-size, .enrollment-method {
+    display: flex;
+    justify-content: space-between;
+}
+.key-type label, .key-size label, .enrollment-method label {
+    width: 45%; 
+}
+.btn-custom {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-custom:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+.btn-outline-primary-custom {
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+.btn-outline-primary-custom:hover {
+    background-color: #007bff;
+    color: white;
+}
+#downloadLinks {
+    margin-top: 10px;
+}
+.san-container {
+    margin-top: 10px;
+}
+.san-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.san-item input {
+    width: 80%;
+    padding: 5px;
+}
+.san-item button {
+    padding: 5px 10px;
+}
+.add-san {
+    margin-top: 10px;
+}
+#caServerUrlGroup {
+    display: block;
+}
+.hidden {
+    display: none;
+}
+.download-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.data-table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+}
+
+.data-table td {
+    max-width: 150px;
+}
+
+.btn-custom.clicked {
+    background-color: #007bff;
+    color: white;
+}
+
+.selected-row {
+    background-color: #dff0d8; /* 선택된 행 강조 색상 */
+}
+
+#certificate-details {
+    margin-top: 20px;
+}
+
+h2, h3, h4 {
+    color: #343a40;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+pre {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.subject-template-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.san-section {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.san-title {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.add-san-input {
+    margin-bottom: 10px;
+}
+
+.san-toggle {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.san-toggle:hover {
+    color: #0056b3;
+}
+
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkbox-group label {
+    width: 48%;
+    margin-bottom: 10px;
+    margin-right: 2%;
+}
+
+.checkbox-group label:nth-child(2n) {
+    margin-right: 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+}

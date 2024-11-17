@@ -1,0 +1,22 @@
+{
+    "CN": "##CFSSLADDRESS##",
+
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "CA": {
+        "expiry": "87600h",
+        "pathlen": 0
+    },
+    "names": [
+        {
+            "C": "KR",
+            "ST": "Seoul",
+            "L": "Sangye-dong, Nowon-gu",
+            "O": "HelloWorld, INC.",
+            "OU": "Technical Research Center"
+        }
+    ]
+}
+

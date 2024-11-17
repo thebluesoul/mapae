@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mapae_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: MAPAEDB
+      MYSQL_USER: mapae_user
+      MYSQL_PASSWORD: mapae_password
+    ports:
+      - "3306:3306/tcp"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../docker/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - ../docker/mysql/conf:/docker-entrypoint-initdb.d
+
+  web:
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../src:/app_debug
+
+  cfssl:
+    build:
+      context: ../
+      dockerfile: docker/cfssl/Dockerfile
+    ports:
+      - "8889:8889"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: MAPAEDB
+      MYSQL_HOST: 172.30.1.18
+    volumes:
+      - ../docker/cfssl/conf.defs:/etc/cfssl/conf.defs
+      - ../docker/cfssl/bin/entrypoint.sh:/usr/bin/entrypoint.sh
+    entrypoint: ["/bin/sh", "/usr/bin/entrypoint.sh"]
+
+volumes:
+  cfssl_data: {}
+  mysql_data: {}
+

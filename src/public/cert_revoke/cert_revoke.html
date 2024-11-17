@@ -1,0 +1,39 @@
+<h2>인증서 폐기</h2>
+<div class="form-group">
+    <div id="revoke-section" class="hidden">
+        <select id="revoke-reason" class="form-control">
+            <option value="0">특정한 이유가 지정되지 않았음 (0)</option>
+            <option value="1">인증서의 키가 손상되었거나 유출되었음 (1)</option>
+            <option value="2"> 인증서를 발급한 인증 기관(CA)이 손상 (2)</option>
+            <option value="3">인증서 소유자의 소속이 변경 (3)</option>
+            <option value="4">새로운 인증서로 대체 (4)</option>
+            <option value="5">인증서 소유자의 운영이 중단 (5)</option>
+            <option value="6">인증서가 일시적으로 보류 (6)</option>
+            <option value="8">인증서가 CRL(인증서 폐기 목록)에서 제거 (8)</option>
+            <option value="9">인증서 소유자의 권한이 철회 (9)</option>
+            <option value="10">속성 인증 기관(Attribute Authority, AA)이 손상 (10)</option>
+        </select>
+        <button id="revoke-button" class="btn btn-danger-custom hidden">Revocation</button>
+    </div>    
+</div>
+<div class="table-responsive">
+    <table class="data-table" id="certificates-table">
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Authority Key Identifier</th>
+                <th>Status</th>
+                <th>Expiry</th>
+                <th >Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Certificate rows will be dynamically added here -->
+        </tbody>
+    </table>
+</div>
+<div id="certificate-details">
+    <!-- Certificate details will be shown here -->
+</div>
+
+

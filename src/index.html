@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.10.0/forge.min.js"></script>
+    
+    <div class="sidebar">
+        <h2>인증서 관리</h2>
+        <a href="#" class="menu-item" data-content="client-cert">클라이언트(사용자) 인증서 발행</a>
+        <a href="#" class="menu-item" data-content="server-cert">서버(서비스) 인증서 발행</a>
+        <a href="#" class="menu-item" data-content="sign-cert">인증서 서명</a>
+        <a href="#" class="menu-item" data-content="revoke-cert">인증서 폐기</a>
+        <a href="#" class="menu-item" data-content="crl-info">CRL</a>
+        <a href="#" class="menu-item" data-content="ocsp">OCSP</a>
+        <a href="#" class="menu-item" data-content="root-csr">루트인증서 CSR</a>
+        <a href="#" class="menu-item" data-content="server-info">서버 정보</a>
+    </div>
+    <div class="content" id="content-container">
+        <!-- Dynamic content will be loaded here -->
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

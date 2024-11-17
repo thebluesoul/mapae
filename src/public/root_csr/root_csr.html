@@ -1,0 +1,100 @@
+<div class="form-group">
+    <label onclick="toggleSanSection()" id="sanLabel"><span id="sanToggleIcon">+</span> Generate ca-csr.json.update </label>
+    <div class="san-section">
+        <div class="san-content" id="sanContent" style="display:none;">
+            <button type="button" class="btn btn-info" id="loadTemplateButton">Load Template</button>
+            <div class="form-group">
+                <label for="commonName">Common Name (CN)</label>
+                <input type="text" class="form-control" id="commonName" placeholder="Common Name">
+            </div>
+            <div class="form-group">
+                <label for="countryName">Country (C)</label>
+                <input type="text" class="form-control" id="countryName" value="KR">
+            </div>
+            <div class="form-group">
+                <label for="stateName">State (ST)</label>
+                <input type="text" class="form-control" id="stateName" value="Gyeonggi-do">
+            </div>
+            <div class="form-group">
+                <label for="localityName">Locality (L)</label>
+                <input type="text" class="form-control" id="localityName" value="Anyang-si">
+            </div>
+            <div class="form-group">
+                <label for="organizationName">Organization (O)</label>
+                <input type="text" class="form-control" id="organizationName" value="GENIANs, INC.">
+            </div>
+            <div class="form-group">
+                <label for="organizationalUnitName">Organizational Unit (OU)</label>
+                <input type="text" class="form-control" id="organizationalUnitName" value="Technical Research Center">
+            </div>
+            <div class="form-group">
+                <label for="keyAlgorithms">Key Algorithms</label>
+                <input type="text" class="form-control" id="keyAlgorithms">
+            </div>
+            <div class="form-group">
+                <label for="keySize">Key Size</label>
+                <input type="text" class="form-control" id="keySize">
+            </div>
+            <div class="form-group">
+                <label for="pkcs12Password">PKCS#12 Password</label>
+                <input type="password" class="form-control" id="pkcs12Password" value="12345">
+                <button type="button" id="showPassword" class="btn btn-outline-primary-custom btn-sm">Show Password</button>
+            </div>
+            <button type="button" class="btn btn-info" id="geneCaCsrJson">Generate</button>
+            <pre id="fileOutput"></pre>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label onclick="toggleCaConfSection()" id="caConfLabel"><span id="caConfToggleIcon">+</span> Generate ca-config.json.update </label>
+    <div class="san-section">
+        <div class="san-content" id="caConfContent" style="display:none;">
+            <div class="san-section">
+                <label for="profileName">Profile Name:</label>
+                <input type="text" id="profileName" name="profileName">    
+            </div>
+            <div class="san-group">
+                <div class="san-section">
+                    <label>Key Usages:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="usages" value="signing"> Signing(서명)</label>
+                        <label><input type="checkbox" name="usages" value="digital signature"> Digital Signature(디지털 서명에 사용되며, 메시지의 진위성과 무결성을 보장)</label>
+                        <label><input type="checkbox" name="usages" value="content commitment"> Content Commitment(콘텐츠 약정)</label>
+                        <label><input type="checkbox" name="usages" value="key encipherment"> Key Encipherment(암호화된 키 전송)</label>
+                        <label><input type="checkbox" name="usages" value="key agreement"> Key Agreement(키 합의)</label>
+                        <label><input type="checkbox" name="usages" value="data encipherment"> Data Encipherment(데이터 암호화)</label>
+                        <label><input type="checkbox" name="usages" value="cert sign"> Cert Sign(다른 인증서를 서명하는 데 사용)</label>
+                        <label><input type="checkbox" name="usages" value="crl sign"> CRL Sign(CRL 서명)</label>
+                        <label><input type="checkbox" name="usages" value="encipher only"> Encipher Only(암호화 전용)</label>
+                        <label><input type="checkbox" name="usages" value="decipher only"> Decipher Only(복호화 전용)</label>
+                    </div>   
+                </div>
+                <div class="san-section">
+                    <label>Extended Key Usages:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="usages" value="any"> Any(모든 용도)</label>
+                        <label><input type="checkbox" name="usages" value="server auth"> Server Auth(웹 서버의 SSL/TLS 인증서)</label>
+                        <label><input type="checkbox" name="usages" value="client auth"> Client Auth(사용자가 서버에 인증)</label>
+                        <label><input type="checkbox" name="usages" value="code signing"> Code Signing(소프트웨어나 코드의 무결성을 보장)</label>
+                        <label><input type="checkbox" name="usages" value="email protection"> Email Protection(이메일의 무결성과 기밀성을 보장)</label>
+                        <label><input type="checkbox" name="usages" value="s/mime"> S/MIME(S/MIME 이메일 암호화 및 서명)</label>
+                        <label><input type="checkbox" name="usages" value="ipsec end system"> IPSEC End System(IPSEC 엔드 시스템)</label>
+                        <label><input type="checkbox" name="usages" value="ipsec tunnel"> IPSEC Tunnel(IPSEC 터널)</label>
+                        <label><input type="checkbox" name="usages" value="ipsec user"> IPSEC User(IPSEC 사용자)</label>
+                        <label><input type="checkbox" name="usages" value="timestamping"> Timestamping(디지털 서명된 데이터의 타임스탬프를 보장)</label>
+                        <label><input type="checkbox" name="usages" value="ocsp signing"> OCSP Signing(OCSP 서명)</label>
+                        <label><input type="checkbox" name="usages" value="microsoft sgc"> Microsoft SGC(마이크로소프트 SGC)</label>
+                        <label><input type="checkbox" name="usages" value="netscape sgc"> Netscape SGC(넷스케이프 SGC)</label>
+                    </div>
+                </div>
+                <button class="btn-custom" id="LoadCaConfigJson">기본 템플릿 가져오기</button>
+                <pre id="info-output"></pre>
+                <pre id="template-output"></pre>
+                <button class="btn-custom" id="addProfileCaConfigJson">Add Profile</button>
+                <button class="btn-custom" id="genCaConfigJson">Generate</button>
+                <pre id="result-caconfjson"></pre>    
+                <pre id="output-caconfjson"></pre>
+            </div>
+        </div>
+    </div>
+</div>

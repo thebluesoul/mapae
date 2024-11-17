@@ -1,0 +1,116 @@
+<form>
+    <div class="form-group">
+        <label for="certName">Friendly Name</label>
+        <input type="text" class="form-control" id="certName" value="무선랜사용자_기세호">
+    </div>
+    <div class="form-group">
+        <label for="profile">Profile</label>
+        <select class="form-control" id="profile">
+            <option value="client">Client</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>CN (Common Name)</label>
+        <div>
+            <label><input type="radio" name="idType" value="email" onclick="handleIdTypeChange()"> E-Mail</label>
+            <label><input type="radio" name="idType" value="userId" onclick="handleIdTypeChange()" checked> UserID</label>
+        </div>
+    </div>
+    <div class="form-group" id="idValueGroup">
+        <input type="text" class="form-control" id="idValue" placeholder="Enter E-Mail or UserID">
+    </div>
+    <div class="form-group" id="sanSection">
+        <label>Subject Alternative Name</label>
+        <div class="san-container">
+            <div class="san-item">
+                <input type="text" class="form-control" placeholder="Enter SAN value(E-Mail)">
+                <button type="button" class="btn btn-outline-primary-custom" onclick="removeSan(this)">삭제</button>
+            </div>
+        </div>
+        <button class="btn btn-outline-primary-custom add-san" type="button" onclick="addSan()">SAN 추가</button>
+    </div>
+    <div>
+        <button type="button" class="btn btn-outline-primary-custom btn-block" onclick="toggleOptionalSection()">펼치기</button>
+    </div>
+    <div class="optional-section" id="optionalSection">
+        <div class="form-group">
+            <label for="orgUnit">Organizational Unit</label>
+            <input type="text" class="form-control" id="orgUnit" value="Technical Research Center">
+        </div>
+        
+        <div class="form-group">
+            <label for="organization">Organization</label>
+            <input type="text" class="form-control" id="organization" value="HelloWorld, INC.">
+        </div>
+        
+        <div class="form-group">
+            <label for="locality">Locality(City)</label>
+            <input type="text" class="form-control" id="locality" value="Anyang-si">
+        </div>
+        
+        <div class="form-group">
+            <label for="state">State / Province</label>
+            <input type="text" class="form-control" id="state" value="Gyeonggi-do">
+        </div>
+        
+        <div class="form-group">
+            <label for="country">Country / Region</label>
+            <input type="text" class="form-control" id="country" value="KR">
+        </div>
+        
+        <div class="form-group">
+            <label for="privateKeyPassword">Password for private key</label>
+            <input type="password" class="form-control" id="privateKeyPassword" value="12345">
+            <button type="button" id="togglePasswordButton" class="btn btn-outline-primary-custom btn-sm">Show Password</button>
+        </div>
+
+        <div class="form-group">
+            <label>Key Type</label>
+            <div class="key-type">
+                <label><input type="radio" name="keyType" value="rsa" checked> RSA</label>
+                <label><input type="radio" name="keyType" value="ellipticCurve"> Elliptic Curve</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Key Size</label>
+            <div class="key-size">
+                <label><input type="radio" name="keySize" value="1024"> 1024 Bit</label>
+                <label><input type="radio" name="keySize" value="1536"> 1536 Bit</label>
+                <label><input type="radio" name="keySize" value="2048" checked> 2048 Bit</label>
+                <label><input type="radio" name="keySize" value="4096"> 4096 Bit</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Enrollment Method</label>
+            <div class="enrollment-method">
+                <label><input type="radio" name="enrollmentMethod" value="fileBased" onclick="updateOkButtonLabel()"> CSR File Generation</label>
+                <label><input type="radio" name="enrollmentMethod" value="onlineSCEP" onclick="updateOkButtonLabel()" checked> Online SCEP</label>
+            </div>
+            <div id="caServerUrlGroup" class="form-group mt-2">
+                <label for="caServerUrl">CA Server URL </label>
+                <input type="text" class="form-control" id="caServerUrl" placeholder="Enter CA Server URL">
+                <small class="form-text text-muted">예: http://${정책서버주소}:8889</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-primary-custom btn-custom" id="okButton" onclick="generateCSR()">발행 요청</button>
+    </div>
+    <div id="downloadLinks" class="hidden">
+        <a href="#" id="downloadPrivateKey" class="btn btn-outline-primary-custom btn-sm" download>Download Private Key</a>
+        <a href="#" id="downloadSignedCert" class="btn btn-outline-primary-custom btn-sm" download>Download Signed Certificate</a>
+        <a href="#" id="downloadRootCert" class="btn btn-outline-primary-custom btn-sm" download>Download Root Certificate</a>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-outline-primary-custom btn-custom" id="viewCertButton" style="display:none;">View Signed Cert</button>
+        <button type="button" class="btn btn-outline-primary-custom btn-custom" id="viewCsrButton" style="display:none;">View CSR</button>
+    </div>
+    <pre id="certContent" style="display:none; white-space: pre-wrap;"></pre>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="copyCertButton" style="display:none;">Copy PEM Content</button>
+    <pre id="csrContent" style="display:none; white-space: pre-wrap;"></pre>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="copyCsrButton" style="display:none;">Copy CSR Content</button>
+    <div id="pemDownloadLinks" class="hidden"></div>
+</form>

@@ -1,0 +1,53 @@
+<h2>OCSP Configuration</h2>
+<form>
+    <div class="form-group">
+        <label for="ocspResponder">OCSP Responder URL</label>
+        <input type="text" class="form-control" id="ocspResponder" placeholder="Enter OCSP Responder URL">
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="ocspRejectUnknown">
+        <label class="form-check-label" for="ocspRejectUnknown">Reject if OCSP Responder returns UNKNOWN status</label>
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="ocspRejectUnreachable">
+        <label class="form-check-label" for="ocspRejectUnreachable">Reject if OCSP Responder is unreachable</label>
+    </div>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" onclick="saveOCSPConfig()">Save Configuration</button>
+</form>
+
+<h3 class="mt-5">OCSP Validation</h3>
+<form>
+    <div class="form-group">
+        <label for="certificatePem">Certificate PEM</label>
+        <textarea class="form-control" id="certificatePem" rows="5" placeholder="Paste Certificate PEM"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="issuerPem">Issuer Certificate PEM</label>
+        <textarea class="form-control" id="issuerPem" rows="5" placeholder="Paste Issuer Certificate PEM"></textarea>
+    </div>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="ocsp-button">Check OCSP</button>
+</form>
+
+<div id="ocspResult" class="mt-4" style="display:none;">
+    <h4>OCSP Validation Result</h4>
+    <pre id="ocspResultContent"></pre>
+</div>
+
+<h3 class="mt-5">Generate OCSP Signing Certificate</h3>
+<form>
+    <div class="form-group">
+        <label for="commonName">Common Name</label>
+        <input type="text" class="form-control" id="commonName" placeholder="Enter Common Name">
+    </div>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="generateOcspCertButton">Generate OCSP Signing Certificate</button>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="viewSignedOCSP" style="display:none;">View Signed OCSP Cert</button>
+
+    <div id="downloadLinks" class="hidden">
+        <a href="#" id="downloadPrivateKey" class="btn btn-outline-primary-custom btn-sm" download>Download Private Key</a>
+        <a href="#" id="downloadSignedOcspCert" class="btn btn-outline-primary-custom btn-sm" download>Download Signed OCSP Certificate</a>
+        <a href="#" id="downloadOcspForRootCert" class="btn btn-outline-primary-custom btn-sm" download>Download Root Certificate</a>
+    </div>
+    <pre id="OcspCertContent" style="display:none; white-space: pre-wrap;"></pre>
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="copyOcspCertButton" style="display:none;">Copy PEM Content</button>
+    <div id="OcspPemDownloadLinks" class="hidden"></div>    
+</form>

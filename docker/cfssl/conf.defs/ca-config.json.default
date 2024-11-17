@@ -1,0 +1,41 @@
+{
+  "signing": {
+    "default": {
+      "expiry": "8h",
+      "crl_url": "https://##CFSSLADDRESS##/localCA.crl",
+      "ocsp_url": "https://##CFSSLADDRESS##/ocsp"
+    },
+    "profiles": {
+      "peer": {
+        "usages": [
+            "signing",
+            "digital signature",
+            "key encipherment", 
+            "client auth",
+            "server auth"
+        ],
+        "expiry": "17520h",
+        "crl_url": "https://##CFSSLADDRESS##/localCA.crl",
+        "ocsp_url": "https://##CFSSLADDRESS##/ocsp"
+      },
+      "server": {
+
+        "usages": ["digital signature", "key encipherment", "server auth"],
+        "expiry": "17520h",
+        "crl_url": "https://##CFSSLADDRESS##/localCA.crl",
+        "ocsp_url": "https://##CFSSLADDRESS##/ocsp"
+      },
+      "client": {
+        "usages": ["digital signature", "key encipherment", "client auth"],
+        "expiry": "17520h",
+        "crl_url": "https://##CFSSLADDRESS##/localCA.crl",
+        "ocsp_url": "https://##CFSSLADDRESS##/ocsp"
+      },
+      "ocsp": {
+        "usages": ["digital signature", "ocsp signing"],
+        "expiry": "17520h"
+      }
+    }
+  }
+}
+

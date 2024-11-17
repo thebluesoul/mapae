@@ -1,0 +1,105 @@
+<h2>서버 정보</h2>
+<form id="server-info-form">
+    <div class="form-group">
+        <label for="dbHost">Database 서버 주소</label>
+        <input type="text" id="dbHost" value="192.168.35.60" required>
+    </div>
+    <div class="form-group">
+        <label for="dbPort">Database 서버 포트</label>
+        <input type="number" id="dbPort" value="3306" required>
+    </div>
+    <div class="form-group">
+        <label for="dbUser">Database 사용자</label>
+        <input type="text" id="dbUser" value="root" required>
+    </div>
+    <div class="form-group">
+        <label for="dbPassword">Database 비밀번호</label>
+        <input type="password" id="dbPassword" value="BLHO74TE8P224DZ7" required>
+        <button type="button" id="togglePasswordButton" class="btn btn-outline-primary-custom btn-sm">Show Password</button>
+    </div>
+    <div class="form-group">
+        <label for="cfsslServerUrl">cfssl 서버 URL</label>
+        <input type="text" id="cfsslServerUrl" value="http://192.168.35.60:8889" required>
+    </div>
+    <div class="form-group">
+        <label onclick="toggleSanSection()" id="sanLabel"><span id="sanToggleIcon">+</span> Subject Alternative Name (SAN)</label>
+        <div class="san-section">
+            <div class="san-content" id="sanContent" style="display:none;">
+                <button type="button" class="btn btn-info" id="loadTemplateButton">Load Template</button>
+                <div class="form-group">
+                    <label for="commonName">Common Name (CN)</label>
+                    <input type="text" class="form-control" id="commonName" placeholder="Common Name">
+                </div>
+                <div class="form-group">
+                    <label for="countryName">Country (C)</label>
+                    <input type="text" class="form-control" id="countryName" value="KR">
+                </div>
+                <div class="form-group">
+                    <label for="stateName">State (ST)</label>
+                    <input type="text" class="form-control" id="stateName" value="Gyeonggi-do">
+                </div>
+                <div class="form-group">
+                    <label for="localityName">Locality (L)</label>
+                    <input type="text" class="form-control" id="localityName" value="Anyang-si">
+                </div>
+                <div class="form-group">
+                    <label for="organizationName">Organization (O)</label>
+                    <input type="text" class="form-control" id="organizationName" value="GENIANs, INC.">
+                </div>
+                <div class="form-group">
+                    <label for="organizationalUnitName">Organizational Unit (OU)</label>
+                    <input type="text" class="form-control" id="organizationalUnitName" value="Technical Research Center">
+                </div>
+                <div class="form-group">
+                    <label for="keyAlgorithms">Key Algorithms</label>
+                    <input type="text" class="form-control" id="keyAlgorithms">
+                </div>
+                <div class="form-group">
+                    <label for="keySize">Key Size</label>
+                    <input type="text" class="form-control" id="keySize">
+                </div>
+                <div class="form-group">
+                    <label for="pkcs12Password">PKCS#12 Password</label>
+                    <input type="password" class="form-control" id="pkcs12Password" value="12345">
+                    <button type="button" id="showPassword" class="btn btn-outline-primary-custom btn-sm">Show Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <button type="button" id="crlFileBased" class="btn btn-outline-primary-custom" onclick="toggleInputOption('file')">File Based</button>
+            <button type="button" id="crlPemContents" class="btn btn-outline-primary-custom" onclick="toggleInputOption('pem')">PEM Contents</button>
+        </div>
+        
+        <div id="CertFileGroup" class="hidden">
+            <div>
+                <label for="rootCertFile">Root Certificate File</label>
+                <input type="file" id="rootCertFile">
+            </div>
+            <div>
+                <label for="rootKeyFile">Root Private Key File</label>
+                <input type="file" id="rootKeyFile">
+            </div>
+        </div>
+        
+        <div id="pemContentGroup" class="hidden">
+            <div>
+                <label for="rootCertPem">Root Certificate PEM</label>
+                <textarea class="form-control" id="rootCertPem" rows="5"></textarea>
+            </div>
+            <div>
+                <label for="rootKeyPem">Root Private Key PEM</label>
+                <textarea class="form-control" id="rootKeyPem" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        <label for="nodeJsServer">Node.js 실행한 장비의 주소</label>
+        <input type="text" id="nodeJsServer" value="http://172.29.99.41:3000" required>
+    </div>
+    <button type="button" class="btn btn-outline-primary-custom" onclick="saveServerInfo()">저장</button>
+    <small class="form-text text-muted">브라우저의 로컬스토리지에 저장됩니다.</small>
+</form>
+<pre id="server-info-result" style="margin-top: 20px;"></pre>

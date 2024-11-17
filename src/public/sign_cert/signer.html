@@ -1,0 +1,121 @@
+<form>
+    <div class="form-group">
+        <label for="certificateId">Friendly Name:</label>
+        <input type="text" class="form-control" id="certificateId" value="secure">
+    </div>
+
+    <div class="form-group">
+        <label>Type</label>
+        <div>
+            <button type="button" class="btn btn-outline-primary" id="csrToSign" onclick="toggleInput('csr')">CSR to sign</button>
+            <button type="button" class="btn btn-outline-primary active" id="pemContent" onclick="toggleInput('pem')">PEM Content</button>
+        </div>
+    </div>
+
+    <div class="form-group hidden" id="csrFileGroup">
+        <label for="csrFile">CSR file (.csr, .req):</label>
+        <input type="file" class="form-control-file" id="csrFile">
+    </div>
+
+    <div class="form-group" id="pemContentGroup">
+        <label for="pemContentText">PEM Content:</label>
+        <textarea class="form-control" id="pemContentText" rows="5"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Validity period:</label>
+        <div>
+            <input type="number" class="form-control" id="validityPeriod" value="365">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Hash algorithm:</label>
+        <div>
+            <button type="button" class="btn btn-outline-primary active" id="sha256" onclick="selectHash('sha256')">SHA-256</button>
+            <button type="button" class="btn btn-outline-primary" id="sha1" onclick="selectHash('sha1')">SHA-1</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Profile</label>
+        <div>
+            <button type="button" class="btn btn-outline-primary active" id="serverProfile" onclick="selectProfile('server')">Server</button>
+            <button type="button" class="btn btn-outline-primary" id="clientProfile" onclick="selectProfile('client')">Client</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label onclick="toggleSanSection()" id="sanLabel"><span id="sanToggleIcon">+</span> Subject Alternative Name (SAN)</label>
+        <div class="san-section">
+            <div class="san-content" id="sanContent" style="display:none;">
+                <div class="dns-container">
+                    <h6 class="san-title">DNS Names</h6>
+                    <div id="dnsList"></div>
+                    <input type="text" class="form-control add-san-input" id="addDnsInput" placeholder="Enter DNS name">
+                    <button type="button" class="btn btn-outline-primary-custom" onclick="addDns()">Add DNS</button>
+                </div>
+                <div class="ip-container">
+                    <h6 class="san-title">IP Addresses</h6>
+                    <div id="ipList"></div>
+                    <input type="text" class="form-control add-san-input" id="addIpInput" placeholder="Enter IP address">
+                    <button type="button" class="btn btn-outline-primary-custom" onclick="addIp()">Add IP</button>
+                </div>
+                <div class="hostname-container">
+                    <h6 class="san-title">Hostnames</h6>
+                    <div id="hostnameList"></div>
+                    <input type="text" class="form-control add-san-input" id="addHostnameInput" placeholder="Enter Hostname">
+                    <button type="button" class="btn btn-outline-primary-custom" onclick="addHostname()">Add Hostname</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label onclick="toggleOtherExtenSection()" id="sanLabel"><span id="otherToggleIcon">+</span>Other Extensions</label>
+        <div class="san-section">
+            <div class="san-content" id="otherExtensionContent" style="display:none;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="crlCheckbox">
+                    <label class="form-check-label" for="crlCheckbox">Add CRL Distribution Points extension</label>
+                    <input type="text" class="form-control" id="crlLocation" value="https://172x29x99x41.com.local/app/cert/crl/172x29x99x41_ca.crl">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="ocspCheckbox">
+                    <label class="form-check-label" for="ocspCheckbox">Add OCSP Responder URL</label>
+                    <input type="text" class="form-control" id="ocspLocation" value="http://172x29x99x41.com.local:2560">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="caServerUrl">CA Server URL </label>
+        <input type="text" class="form-control" id="caServerUrl" placeholder="Enter CA Server URL" value="http://172.29.99.42:8889">
+        <small class="form-text text-muted">예: http://${정책서버주소}:8889</small>
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-outline-primary-custom" id="generateCertificate" onclick="signCertificate()">OK</button>
+        <button type="button" class="btn btn-outline-primary-custom" id="cancel">Cancel</button>
+    </div>
+
+    <button type="button" class="btn btn-outline-primary-custom hidden" id="viewCertButton" onclick="viewCert()">View Cert</button>
+    <div id="decoderLink" class="hidden">
+        <a href="https://certlogik.com/decoder/" target="_blank">https://certlogik.com/decoder/</a>
+    </div>
+    <div id="certContent" class="cert-content hidden">
+        <div class="cert-actions">
+            <h5>Signed Cert</h5>
+            <button type="button" class="btn btn-outline-primary-custom btn-sm" id="copySignedCertButton" onclick="copyToClipboard('certText', this)">Copy Signed Cert</button>
+            <a id="signedCertDownloadLink" class="btn btn-outline-primary-custom btn-sm" download>Download Signed Certificate</a>
+        </div>
+        <pre><code id="certText"></code></pre>
+        <div class="cert-actions">
+            <h5>Root Certificate</h5>
+            <button type="button" class="btn btn-outline-primary-custom btn-sm" id="copyRootCertButton" onclick="copyToClipboard('rootCertText', this)">Copy Root Cert</button>
+            <a id="rootCertDownloadLink" class="btn btn-outline-primary-custom btn-sm" download>Download Root Certificate</a>
+        </div>
+        <pre><code id="rootCertText"></code></pre>
+    </div>
+</form>

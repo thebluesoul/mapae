@@ -1,0 +1,2 @@
+{"driver":"mysql","data_source":"root:##DB_PASS##@tcp(##DB_HOST##:3306)/##TABLESNAME##?parseTime=true"}
+

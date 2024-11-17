@@ -1,0 +1,52 @@
+{
+    "signing": {
+      "default": {
+        "usages": ["signing", "key encipherment", "server auth"],
+        "issuer_urls": ["http://example.com/issuer"],
+        "ocsp_url": "http://ocsp.example.com",
+        "crl_url": "http://crl.example.com",
+        "ca_constraint": {
+          "is_ca": true,
+          "max_path_len": 1,
+          "max_path_len_zero": false
+        },
+        "ocsp_no_check": false,
+        "expiry": "8760h",
+        "backdate": "5m",
+        "auth_key": "example-key",
+        "copy_extensions": true,
+        "prev_auth_key": "previous-key",
+        "remote": "remote-server",
+        "not_before": "2023-01-01T00:00:00Z",
+        "not_after": "2024-01-01T00:00:00Z",
+        "name_whitelist": "example.com",
+        "auth_remote": {
+          "auth_key": "remote-auth-key"
+        },
+        "ct_log_servers": ["http://ctlog.example.com"],
+        "allowed_extensions": [
+          {
+            "id": "1.2.3.4.5",
+            "critical": false
+          }
+        ],
+        "cert_store": "example-cert-store",
+        "lint_error_level": 3,
+        "ignored_lints": ["lint1", "lint2"],
+        "ignored_lint_sources": ["source1", "source2"],
+        "policies": [
+          {
+            "id": "1.2.3.4.5",
+            "qualifiers": [
+              {
+                "type": "id-qt-unotice",
+                "value": "Policy notice"
+              }
+            ]
+          }
+        ],
+        "client_provides_serial_numbers": true
+      }
+    }
+  }
+  

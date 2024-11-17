@@ -1,0 +1,15 @@
+<form>
+    <h2>CRL 정보</h2>
+    <button type="button" id="crl-button" class="btn btn-outline-primary-custom btn-custom" onclick="generateCRL()">CRL 생성</button>
+    <button type="button" id="view-crl-button" class="btn btn-outline-primary-custom btn-custom" style="display:none;">CRL 보기</button>
+
+    <div id="downloadLinks" class="hidden">
+        <a href="#" id="downloadCrlCert" class="btn btn-outline-primary-custom btn-sm" download>Download CRL</a>
+    </div>
+
+    <button type="button" class="btn btn-outline-primary-custom btn-sm" id="copyCrlButton" style="display:none;">Copy PEM Content</button>
+    <pre id="crl-content" style="display:none; white-space: pre-wrap;"></pre>
+
+    <pre id="crl-content-info" style="display:none; white-space: pre-wrap;"></pre>
+</form>
+

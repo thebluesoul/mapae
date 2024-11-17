@@ -1,0 +1,19 @@
+{
+    "CN": "OCSP Responder for ##CFSSLADDRESS##",
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [
+        {
+            "C": "KR",
+            "ST": "Seoul",
+            "L": "Sangye-dong, Nowon-gu",
+            "O": "HelloWorld, INC.",
+            "OU": "Technical Research Center"
+        }
+    ],
+    "hosts": [
+        "##CFSSLADDRESS##"
+    ]
+}
