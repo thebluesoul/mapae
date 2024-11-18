@@ -37,7 +37,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: MAPAEDB
-      MYSQL_HOST: 172.30.1.18
+      MYSQL_HOST: mysql
     volumes:
       - ../docker/cfssl/conf.defs:/etc/cfssl/conf.defs
       - ../docker/cfssl/bin/entrypoint.sh:/usr/bin/entrypoint.sh
