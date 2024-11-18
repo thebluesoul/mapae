@@ -8,3 +8,14 @@
 Docker-compose환경에서 cfssl 를 실행하고 mysql 5.7과 연동하여 인증서 정보를 DB에 저장합니다.
 이를 통해 사용자는 웹 인터페이스를 통해 cfssl 서버와 상호 작용하여 인증서를 발행하고 관리할 수 있습니다.
 
+## install
+
+```
+$ git clone https://github.com/thebluesoul/mapae.git
+$ cd mapae
+$ apt update && apt install -y openssl docker.io docker-compose gnupg2 pass jq dmidecode
+$ sudo su
+# docker-compose build --no-cache
+# docker-compose up -d
+
+```
