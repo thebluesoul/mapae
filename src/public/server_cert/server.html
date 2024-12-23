@@ -14,22 +14,20 @@
         <input type="text" class="form-control" id="idValue" placeholder="Enter Domain Name">
     </div>
     <div class="form-group" id="sanSection">
-        <label>Subject Alternative Name</label>
-        <div class="san-container">
-            <div class="san-item">
-                <input type="text" class="form-control" value="email.geninas.example.com">
-                <button type="button" class="btn btn-outline-primary-custom" onclick="removeSan(this)">삭제</button>
-            </div>
-            <div class="san-item">
-                <input type="text" class="form-control" value="172.29.99.163">
-                <button type="button" class="btn btn-outline-primary-custom" onclick="removeSan(this)">삭제</button>
-            </div>
-            <div class="san-item">
-                <input type="text" class="form-control" value="uri:genians:example:service">
-                <button type="button" class="btn btn-outline-primary-custom" onclick="removeSan(this)">삭제</button>
-            </div>
+        <label>Subject Alternative Name (SAN)</label>
+        <div class="d-flex align-items-center mb-2">
+            <select class="form-control mr-2" id="sanTypeSelect">
+                <option value="dns">DNS</option>
+                <option value="ip">IP Address</option>
+                <option value="uri">URI</option>
+                <option value="email">Email</option>
+            </select>
+            <input type="text" class="form-control mr-2" id="sanValueInput" placeholder="Enter SAN value">
+            <button type="button" class="btn btn-outline-primary" onclick="addSan()">+</button>
         </div>
-        <button class="btn btn-outline-primary-custom add-san" type="button" onclick="addSan()">SAN 추가</button>
+        <div class="san-container">
+            <!-- SAN 항목이 추가될 컨테이너 -->
+        </div>
     </div>
     <div>
         <button type="button" class="btn btn-outline-primary-custom btn-block" onclick="toggleOptionalSection()">펼치기</button>
