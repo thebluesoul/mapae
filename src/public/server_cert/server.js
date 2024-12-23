@@ -109,10 +109,40 @@ function handleProfileChange() {
 
 function addSan() {
     const sanContainer = document.querySelector('.san-container');
+    const sanTypeSelect = document.getElementById('sanTypeSelect');
+    const sanValueInput = document.getElementById('sanValueInput');
+
+    const selectedType = sanTypeSelect.value;
+    const enteredValue = sanValueInput.value.trim();
+
+    if (!enteredValue) {
+        return;
+    }
+
+    // Prefix를 추가
+    const prefixMap = {
+        dns: 'dns:',
+        ip: 'ip:',
+        uri: 'uri:',
+        email: 'email:'
+    };
+
+    const prefixedValue = `${prefixMap[selectedType]}${enteredValue}`;
+
+    // SAN 항목 추가
     const sanItem = document.createElement('div');
-    sanItem.className = 'san-item';
-    sanItem.innerHTML = '<input type="text" class="form-control" placeholder="Enter SAN value (Domain Name/IP/URI)"><button type="button" class="btn btn-outline-primary-custom" onclick="removeSan(this)">삭제</button>';
+    sanItem.className = 'san-item d-flex align-items-center mb-2';
+
+    sanItem.innerHTML = `
+        <span class="mr-2">${selectedType.toUpperCase()}:</span>
+        <input type="text" class="form-control mr-2" value="${prefixedValue}" disabled>
+        <button type="button" class="btn btn-outline-danger btn-sm remove-san">-</button>
+    `;
+    sanItem.querySelector('.remove-san').addEventListener('click', () => sanItem.remove());
     sanContainer.appendChild(sanItem);
+
+    // 입력 필드 초기화
+    sanValueInput.value = '';
 }
 
 function removeSan(button) {
@@ -159,8 +189,11 @@ async function generateCSR() {
     const enrollmentMethod = document.querySelector('input[name="enrollmentMethod"]:checked').value;
     const caServerUrl = document.getElementById('caServerUrl').value;
 
-    const sanItems = document.querySelectorAll('.san-item input');
-    const altNames = Array.from(sanItems).map(item => item.value.trim()).filter(value => value);
+    // SAN 컨테이너에 추가된 모든 입력 필드 값을 가져옵니다.
+    const sanItems = document.querySelectorAll('.san-container .san-item input');
+    const altNames = Array.from(sanItems)
+        .map(item => item.value.trim())
+        .filter(value => value); // 값이 있는 항목만 필터링
 
     let keys;
     if (keyType === 'rsa') {
@@ -195,16 +228,20 @@ async function generateCSR() {
 
     if (altNames.length > 0) {
         const sanExtensions = altNames.map(value => {
-            if (value.includes('@')) {
-                return { type: 1, value: value }; // email
-            } else if (value.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/)) {
-                return { type: 7, ip: value }; // IP address
-            } else if (value.startsWith('urn:') || value.startsWith('uri:')) {
-                return { type: 6, value: value }; // URI
+            // Prefix 제거 후 타입 구분
+            if (value.startsWith('email:')) {
+                return { type: 1, value: value.replace('email:', '') }; // Email
+            } else if (value.startsWith('ip:')) {
+                return { type: 7, ip: value.replace('ip:', '') }; // IP Address
+            } else if (value.startsWith('uri:')) {
+                return { type: 6, value: value.replace('uri:', '') }; // URI
+            } else if (value.startsWith('dns:')) {
+                return { type: 2, value: value.replace('dns:', '') }; // DNS
             } else {
-                return { type: 2, value: value }; // DNS name
+                console.warn("Unsupported SAN type:", value);
+                return null;
             }
-        });
+        }).filter(Boolean); // null 값 제거
 
         csr.setAttributes([{
             name: 'extensionRequest',
@@ -409,6 +446,7 @@ function onMenuClick() {
         document.getElementById('caServerUrl').value = serverInfo.cfsslServerUrl;
     }
 
+    addSan();
     handleProfileChange();
     updateOkButtonLabel();
     document.querySelectorAll('input[name="enrollmentMethod"]').forEach(el => el.addEventListener('change', toggleCaServerUrl));
