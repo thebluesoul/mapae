@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname)));
 const apiRouter = require('./api/index');
 app.use(apiRouter);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.APP_PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
