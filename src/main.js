@@ -62,7 +62,12 @@ function loadContent(content) {
             htmlFile = 'public/root_csr/root_csr.html';
             jsFile = 'public/root_csr/root_csr.js';
             break;
-    
+
+        case 'cert-parser':
+            htmlFile = 'public/cert_parser/cert_parser.html';
+            jsFile = 'public/cert_parser/cert_parser.js';
+            break;
+
         default:
             htmlFile = '';
             jsFile = '';

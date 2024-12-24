@@ -467,4 +467,36 @@ router.post('/api/gen-ca-config-json', (req, res) => {
     }
 });
 
+// 인증서의 PEM Data를 파싱하는 API 엔드포인트 추가
+router.post('/api/parsingcert', (req, res) => {
+    console.log('[/api/parsingcert] Request received len:', JSON.stringify(req.body).length);
+    const { certPemData } = req.body;
+
+    try {
+        // const certpemdata = forge.pki.certificateFromPem(certPemData);
+        const cmd = `echo "${certPemData}" | openssl x509 -noout -text -inform PEM`;
+
+        console.log("cmd=", cmd);
+        exec(cmd, (err, stdout, stderr) => {
+            if (err) {
+                console.error("Error executing OpenSSL command:", err);
+                res.status(500).send({ success: false, errors: err.message });
+                return;
+            }
+    
+            if (stderr) {
+                console.error("OpenSSL stderr:", stderr);
+                res.status(500).send({ success: false, errors: stderr });
+                return;
+            }
+    
+            res.status(200).send({ success: true, result: stdout });
+        });
+
+        // res.status(200).send({ success: true, result: "hello World!!" });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 module.exports = router;
