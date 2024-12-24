@@ -1,3 +1,9 @@
+CREATE DATABASE IF NOT EXISTS MAPAEDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+DROP USER IF EXISTS 'mapae_user'@'%';
+CREATE USER 'mapae_user'@'%' IDENTIFIED BY 'mapae_password';
+GRANT ALL PRIVILEGES ON KEYCLOAKDB.* TO 'mapae'@'%';
+FLUSH PRIVILEGES;
+
 USE MAPAEDB;
 
 -- certificates 테이블 생성

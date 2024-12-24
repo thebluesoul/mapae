@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  mapae_network:
+    driver: bridge
+
 services:
 
   mysql:
@@ -17,15 +21,21 @@ services:
       - mysql_data:/var/lib/mysql
       - ../docker/mysql/conf/my.cnf:/etc/mysql/my.cnf
       - ../docker/mysql/conf:/docker-entrypoint-initdb.d
+    networks:
+      - mapae_network
 
   web:
     build:
       context: ../
       dockerfile: docker/app/Dockerfile
     ports:
-      - "3000:3000"
+      - "4000:4000"
+    environment:
+      APP_PORT: 4000
     volumes:
-      - ../src:/app_debug
+      - ../src:/app/src
+    networks:
+      - mapae_network
 
   cfssl:
     build:
@@ -42,6 +52,8 @@ services:
       - ../docker/cfssl/conf.defs:/etc/cfssl/conf.defs
       - ../docker/cfssl/bin/entrypoint.sh:/usr/bin/entrypoint.sh
     entrypoint: ["/bin/sh", "/usr/bin/entrypoint.sh"]
+    networks:
+      - mapae_network
 
 volumes:
   cfssl_data: {}
