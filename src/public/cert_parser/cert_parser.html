@@ -1,0 +1,18 @@
+<h1 class="mt-5">Certificate Decoder Tool</h1>
+<p>Decode your CSR or Certificate here:</p>
+
+<div class="form-group">
+    <textarea class="form-control" id="certificate" rows="10" placeholder="Paste your certificate or CSR here..."></textarea>
+</div>
+<div class="form-group">
+    <label for="file">Or upload a file:</label>
+    <input type="file" id="certfile" class="form-control-file">
+</div>
+
+<button type="submit" id="submit-button" class="btn btn-outline-primary-custom btn-sm">Decode</button>
+
+<hr>
+<h2>Results</h2>
+<div id="decoder-results">
+    <!-- Dynamic content will be loaded here -->
+</div>
