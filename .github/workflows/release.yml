@@ -22,7 +22,7 @@ jobs:
           zip -r mapae-${{ env.RELEASE_NAME }}.zip . -x "*.git*"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mapae-${{ env.RELEASE_NAME }}.zip
           path: mapae-${{ env.RELEASE_NAME }}.zip
