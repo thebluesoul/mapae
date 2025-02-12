@@ -30,23 +30,3 @@ jobs:
           body: "자동 배포된 릴리즈"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
-  upload-to-drive:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download Release Asset
-        uses: dsaltares/fetch-gh-release-asset@v2
-        with:
-          repo: ${{ github.repository }}
-          version: "tags/${{ github.ref_name }}"
-          file: "mapae-${{ github.ref_name }}.zip"
-          token: ${{ secrets.GH_PAT }}
-
-      - name: Upload to Google Drive
-        uses: robinraju/gdrive-action@v1
-        with:
-          service_account_key: ${{ secrets.GDRIVE_JSON_KEY }}
-          folder_id: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
-          file: "mapae-${{ github.ref_name }}.zip"

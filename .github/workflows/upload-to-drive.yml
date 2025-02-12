@@ -1,0 +1,51 @@
+name: Upload Release to Google Drive
+
+on:
+  workflow_run:
+    workflows: ["Build and Release"]  # 기존 release.yml이 완료되면 실행
+    types:
+      - completed
+  workflow_dispatch:  # 수동 실행 가능
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y jq wget
+
+      - name: Get Latest Release Asset ID
+        run: |
+          ASSET_ID=$(curl -s -H "Authorization: token ${{ secrets.GH_PAT }}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
+              jq -r '.assets[] | select(.name | endswith(".zip")) | .id')
+          echo "ASSET_ID=$ASSET_ID" >> $GITHUB_ENV
+
+      - name: Download Release Asset
+        run: |
+          curl -L -o mapae-${{ github.ref_name }}.zip \
+               -H "Authorization: token ${{ secrets.GH_PAT }}" \
+               -H "Accept: application/octet-stream" \
+               "https://api.github.com/repos/${{ github.repository }}/releases/assets/${{ env.ASSET_ID }}"
+
+      - name: Install gdrive CLI
+        run: |
+          wget -O gdrive.tar.gz https://github.com/prasmussen/gdrive/releases/download/2.1.1/gdrive-linux-x64
+          tar -xzf gdrive.tar.gz
+          chmod +x gdrive
+          sudo mv gdrive /usr/local/bin/
+
+      - name: Authenticate Google Drive
+        run: |
+          echo '${{ secrets.GDRIVE_JSON_KEY }}' > service-account.json
+          gdrive --service-account service-account.json about
+
+      - name: Upload to Google Drive
+        run: |
+          gdrive --service-account service-account.json upload --parent ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }} mapae-${{ github.ref_name }}.zip
