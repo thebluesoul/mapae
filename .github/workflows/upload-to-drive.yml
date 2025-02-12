@@ -36,7 +36,7 @@ jobs:
 
       - name: Install gdrive CLI
         run: |
-          wget -O gdrive.tar.gz https://github.com/prasmussen/gdrive/releases/download/2.1.1/gdrive-linux-x64
+          wget -O gdrive.tar.gz https://github.com/glotlabs/gdrive/archive/refs/tags/3.9.1.tar.gz
           tar -xzf gdrive.tar.gz
           chmod +x gdrive
           sudo mv gdrive /usr/local/bin/
