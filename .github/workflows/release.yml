@@ -1,4 +1,4 @@
-name: Build and Upload to Google Drive
+name: Build and Release
 
 on:
   push:
